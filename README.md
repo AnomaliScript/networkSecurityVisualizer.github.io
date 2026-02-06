@@ -257,13 +257,5 @@ The following is a mapping of what network devices can connect to which other ne
 - Smartphone (Bluetooth/setup)
 - Tablet (Bluetooth/setup)
 
----
 
-## **Quick Notes:**
-- **PoE (Power over Ethernet)**: Some devices like IP cameras and Access Points can receive power through the Ethernet cable from PoE-capable switches.
-- **Direct connections**: Some wired connections (like Desktop-to-Desktop) are technically possible but extremely rare in practice.
-- **Wi-Fi adapters**: Devices like desktops and servers can connect wirelessly if they have Wi-Fi adapters, but this is uncommon for stationary infrastructure.
-
----
-
-Does this hit what you need, or do you want me to adjust anything?
+### This mapping is subject to change
