@@ -1,8 +1,24 @@
-import Message from './Message';
-import ListGroup from './components/ListGroup';
+import { Routes, Route, NavLink } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
+import Sandbox from './pages/Sandbox';
+import About from './pages/About';
+import HowToUse from './pages/HowToUse';
+import Settings from './pages/Settings';
 
 function App() {
-  return <div><ListGroup /></div>;
+  return (
+    <>
+      <Sidebar />
+      <div className="main-content">
+        <Routes>
+          <Route path="/about" element={<About />} />
+          <Route path="/sandbox" element={<Sandbox />} />
+          <Route path="/how-to-use" element={<HowToUse />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </div>
+    </>
+  );
 }
 
 export default App;
