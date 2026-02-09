@@ -1,0 +1,11 @@
+.toolbox {
+    top: 0;
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px;
+    height: 20vh;
+    width: 100%;
+    background: #f5f5f5;
+    border-bottom: 3px solid #ddd;
+}

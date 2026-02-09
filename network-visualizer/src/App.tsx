@@ -11,8 +11,8 @@ function App() {
       <Sidebar />
       <div className="main-content">
         <Routes>
-          <Route path="/about" element={<About />} />
           <Route path="/" element={<Sandbox />} />
+          <Route path="/about" element={<About />} />
           <Route path="/how-to-use" element={<HowToUse />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
