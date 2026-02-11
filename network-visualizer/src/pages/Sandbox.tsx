@@ -73,7 +73,79 @@ const deviceInfo: Record<string, string> = {
     "Landline": "A traditional wired telephone connection that transmits voice signals through physical copper or fiber-optic cables.",
 };
 
+// Labels for edges between specific device pairs
+const edgeLabels: Record<string, string> = {
+    // Router connections
+    "Router-Modem": "Ethernet",
+    "Router-Switch": "Ethernet",
+    "Router-Firewall": "Ethernet",
+    "Router-Server": "Ethernet",
+    "Router-PC": "Ethernet",
+
+    // Switch connections
+    "Switch-PC": "Ethernet",
+    "Switch-Firewall": "Ethernet",
+    "Switch-Server": "Ethernet",
+    "Switch-Desktop": "Ethernet",
+    "Switch-Laptop": "Ethernet",
+    "Switch-Printer": "Ethernet",
+    "Switch-Access Point": "Ethernet/PoE",
+    "Switch-Switch": "Ethernet/Fiber",
+
+    // Access Point connections
+    "Access Point-Switch": "Ethernet/PoE",
+    "Access Point-Router": "Ethernet",
+    "Access Point-Firewall": "Ethernet",
+
+    "Access Point-Laptop": "Wi-Fi",
+    "Access Point-Smartphone": "Wi-Fi",
+    "Access Point-Tablet": "Wi-Fi",
+    "Access Point-Printer": "Wi-Fi",
+    "Access Point-PC": "Wi-Fi",
+
+    // Modem connections
+    "Modem-Internet": "Coax, Fiber, or DSL",
+    "Modem-Router": "Ethernet",
+    "Modem-Firewall": "Ethernet",
+
+    // Gateway connections
+    "Gateway-Internet": "Coax, Fiber, or DSL",
+    "Gateway-Switch": "Ethernet",
+    "Gateway-Server": "Ethernet",
+    "Gateway-Desktop": "Ethernet",
+    "Gateway-Printer": "Ethernet",
+
+    "Gateway-Laptop": "Wi-Fi",
+    "Gateway-Smartphone": "Wi-Fi",
+    "Gateway-Tablet": "Wi-Fi",
+    "Gateway-Cell Tower": "Cellular - if 5G/LTE Gateway flavor",
+
+    // Firewall connections
+    "Firewall-Modem": "Ethernet",
+    "Firewall-Switch": "Ethernet",
+    "Firewall-Server": "Ethernet",
+    "Firewall-Router": "Ethernet",
+    "Firewall-PC": "Ethernet",
+
+    // Server connections
+    "Server-Switch": "Ethernet/Fiber",
+    "Server-Router": "Ethernet",
+    "Server-Another Server": "Ethernet/Fiber",
+
+    "Server-Access Point": "Wi-Fi",
+
+    // The Internet
+    "Internet-Gateway": "Coax/Fiber/DSL",
+    "Internet-Modem": "Coax/Fiber/DSL",
+
+    "Internet-Carrier Core": "Fiber",
+
+    // PC connections
+    
+};
+
 function Sandbox() {
+    // The only constant node: the Internet node
     const [nodes, setNodes, applyNodeChanges] = useNodesState([
         {
             id: 'Internet-0',
@@ -120,7 +192,10 @@ function Sandbox() {
                 return;
             }
 
-            setEdges((eds) => addEdge(connection, eds));
+            const key = `${sourceType}-${targetType}`;
+            const label = edgeLabels[key] || `${sourceType} → ${targetType}`;
+            setEdges((eds) => addEdge({ ...connection, label }, eds));
+
         },
         [setEdges, edges]
     );
