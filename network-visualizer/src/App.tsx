@@ -11,6 +11,8 @@ function App() {
   const location = useLocation();
   const isSandbox = location.pathname === '/';
   const [sandboxActive, setSandboxActive] = useState(true);
+  const [descEnable, setDescEnable] = useState(true);
+  const [particlesEnabled, setParticlesEnabled] = useState(true);
 
   const onNavigate = useCallback((path: string) => {
     setSandboxActive(path === '/');
@@ -20,14 +22,17 @@ function App() {
     <>
       <Sidebar onNavigate={onNavigate} />
       <div style={{ display: isSandbox ? 'block' : 'none' }}>
-          <Sandbox active={sandboxActive && isSandbox} />
+          <Sandbox active={sandboxActive && isSandbox} descEnable={descEnable} particlesEnabled={particlesEnabled} />
       </div>
       {!isSandbox && (
         <div className="main-content">
           <Routes>
             <Route path="/about" element={<About />} />
             <Route path="/how-to-use" element={<HowToUse />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings" element={<Settings
+              descEnable={descEnable} setDescEnable={setDescEnable}
+              particlesEnabled={particlesEnabled} setParticlesEnabled={setParticlesEnabled}
+            />} />
           </Routes>
         </div>
       )}

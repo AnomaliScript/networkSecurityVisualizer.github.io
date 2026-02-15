@@ -34,9 +34,6 @@ const ParticleNode = ({ data }: { data: { size: number; opacity: number } }) => 
     />
 );
 
-// Set to false to disable particle background
-const PARTICLES_ENABLED = true;
-
 // Generate initial particle nodes spread across a large area
 const PARTICLE_COUNT = 240;
 const SPREAD = 5000;
@@ -72,7 +69,7 @@ function createParticleNodes(): Node[] {
     });
 }
 
-const initialParticles = PARTICLES_ENABLED ? createParticleNodes() : [];
+const initialParticles = createParticleNodes();
 
 // Custom node component - must be OUTSIDE the Sandbox function
 const InternetNode = () => (
@@ -155,7 +152,11 @@ function ParticleAnimator({ setNodes, active }: { setNodes: React.Dispatch<React
 // Must be OUTSIDE the Sandbox function to avoid re-renders
 const nodeTypes = { internet: InternetNode, particle: ParticleNode };
 
-function Sandbox({ active = true }: { active?: boolean }) {
+function Sandbox({ 
+    active = true, descEnable = true, particlesEnabled = true 
+}: { 
+    active?: boolean; descEnable?: boolean; particlesEnabled?: boolean 
+}) {
     // The only constant node: the Internet node + particles
     const [nodes, setNodes, applyNodeChanges] = useNodesState([
         {
@@ -164,7 +165,7 @@ function Sandbox({ active = true }: { active?: boolean }) {
             data: { label: 'Internet' },
             position: { x: 400, y: 50 },
         },
-        ...initialParticles,
+        ...(particlesEnabled ? initialParticles : []),
     ]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     
@@ -223,6 +224,7 @@ function Sandbox({ active = true }: { active?: boolean }) {
     // onNodeClick is called when the user clicks on a node
     const onNodeClick = useCallback((event: MouseEvent, node: Node) => {
         if (node.id.startsWith('_particle-')) return;
+        if (descEnable != true) return;
         const type = getDeviceType(node.id);
         const originalLabel = node.data.label;
 
@@ -247,7 +249,7 @@ function Sandbox({ active = true }: { active?: boolean }) {
             ));
             delete timeoutRef.current[node.id];
         }, 3000);
-    }, [setNodes]);
+    }, [setNodes, descEnable]);
 
     // addNode is called when the user clicks a button in the Toolbox to add a new device
     const addNode = (type: string, count: number) => {
@@ -275,7 +277,7 @@ function Sandbox({ active = true }: { active?: boolean }) {
                         onNodeClick={onNodeClick}
                         connectionMode={ConnectionMode.Loose}
                     >
-                        {PARTICLES_ENABLED && <ParticleAnimator setNodes={setNodes} active={active} />}
+                        {particlesEnabled && <ParticleAnimator setNodes={setNodes} active={active} />}
                     </ReactFlow>
                 </ReactFlowProvider>
             </div>
