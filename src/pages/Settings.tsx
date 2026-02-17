@@ -1,5 +1,6 @@
 import React from 'react'
 import './Pages.css';
+import './Settings.css';
 
 interface SettingsProps {
     descEnable: boolean;
