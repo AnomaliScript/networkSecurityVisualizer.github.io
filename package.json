@@ -1,5 +1,6 @@
 {
   "name": "network-visualizer",
+  "homepage": "https://anomaliscript.github.io/network-security-visualizer",
   "private": true,
   "version": "0.0.0",
   "type": "module",
