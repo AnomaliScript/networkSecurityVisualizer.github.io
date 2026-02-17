@@ -7,12 +7,6 @@ The following is a mapping of what network devices can connect to which other ne
 
 ## **Cybersecurity Network Device Connectivity Map (with Connection Types)**
 
----
-
-Here is your final, architecturally accurate list of 16 devices. This mapping ensures that every connection follows the "True First Hop" logic required for a high-fidelity network visualization.
-
----
-
 ### 1. Router
 
 **Can wire to:**
